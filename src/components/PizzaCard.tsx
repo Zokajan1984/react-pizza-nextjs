@@ -58,13 +58,13 @@ export const PizzaCard = ({
         <div className="flex bg-gray-200/50 p-0.5 rounded-lg">
           <button
             onClick={() => setSelectedType("thin")}
-            className={`flex-1 py-1 text-xs font-bold rounded-md transition-all ${selectedType === "thin" ? "bg-white shadow-sm" : "text-gray-500"}`}
+            className={`flex-1 py-1 text-xs font-bold rounded-md cursor-pointer transition-all ${selectedType === "thin" ? "bg-white shadow-sm" : "text-gray-500"}`}
           >
             тонкое
           </button>
           <button
             onClick={() => setSelectedType("traditional")}
-            className={`flex-1 py-1 text-xs font-bold rounded-md transition-all ${
+            className={`flex-1 py-1 text-xs font-bold rounded-md cursor-pointer transition-all ${
               selectedType === "traditional"
                 ? "bg-white shadow-sm"
                 : "text-gray-500"
@@ -78,7 +78,7 @@ export const PizzaCard = ({
             <button
               key={size}
               onClick={() => setSelectedSize(size)}
-              className={`flex-1 py-1 text-xs font-bold rounded-md transition-all ${
+              className={`flex-1 py-1 text-xs font-bold rounded-md cursor-pointer transition-all ${
                 selectedSize === size ? "bg-white shadow-sm" : "text-gray-500"
               }`}
             >
@@ -95,9 +95,9 @@ export const PizzaCard = ({
         <Button
           onClick={handleAdd}
           variant="outline"
-          className="border-[#fe5f1e] text-[#fe5f1e] hover:bg-[#fe5f1e] hover:text-white font-bold rounded-full px-4 gap-1.5 group transition-colors"
+          className="border-[#fe5f1e] text-[#fe5f1e] hover:bg-[#fe5f1e] hover:text-white font-bold rounded-full px-4 gap-1.5 group transition-colors cursor-pointer"
         >
-          <Plus className="w-4 h-4 stroke-[3]" />
+          <Plus className="w-4 h-4 stroke-3" />
           <span>Добавить</span>
           {count > 0 && (
             <span className="bg-[#fe5f1e] text-white group-hover:bg-white group-hover:text-[#fe5f1e] text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center transition-colors">

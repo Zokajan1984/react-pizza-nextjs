@@ -54,7 +54,7 @@ export default function Home() {
         className={`
         flex flex-col md:flex-row 
         md:items-center 
-        justify-between gap-4 py-8
+        justify-between gap-4 py-8 pt-6
       `}
       >
         <Categories activeId={category} onChange={setCategory} />
@@ -63,8 +63,6 @@ export default function Home() {
 
       <div className="mt-6">
         <h2 className="text-3xl font-extrabold mb-8">Все пиццы</h2>
-
-        {/* Адаптивная сетка карточек: 1 колонка на мобилках, 2 на планшетах, 4 на десктопе */}
         <div
           className={`
           grid grid-cols-1 sm:grid-cols-2 
