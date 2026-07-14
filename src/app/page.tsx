@@ -3,12 +3,7 @@
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { api } from "@/lib/axios";
-import {
-  Product,
-  Category,
-  ApiResponseProducts,
-  ApiResponseCategories,
-} from "@/types/pizza";
+import { Product, ApiResponseProducts } from "@/types/pizza";
 import { Header } from "@/components/Header";
 import { Categories } from "@/components/Categories";
 import { Sort } from "@/components/Sort";
@@ -16,25 +11,11 @@ import { PizzaCard } from "@/components/PizzaCard";
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
-
   const [activeCategory, setActiveCategory] = useState("all");
   const [activeSort, setActiveSort] = useState("popular");
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await api.get<ApiResponseCategories>("/categories");
-        setCategories(response.data.data);
-      } catch (error) {
-        console.error("Ошибка загрузки категорий:", error);
-        toast.error("Не удалось загрузить категории");
-      }
-    };
-    fetchCategories();
-  }, []);
-
+  // Один чистый хук для загрузки продуктов
   useEffect(() => {
     const fetchProducts = async () => {
       setIsLoading(true);
@@ -47,6 +28,7 @@ export default function Home() {
         const response = await api.get<ApiResponseProducts>(url);
         let items = response.data.data;
 
+        // Локальная сортировка
         if (activeSort === "price") {
           items = [...items].sort((a, b) => a.price - b.price);
         } else if (activeSort === "alphabet") {
@@ -68,26 +50,28 @@ export default function Home() {
   return (
     <div className="pb-20">
       <Header />
-
       <div
         className={`
-        flex flex-col md:flex-row 
-        md:items-center 
-        justify-between gap-4 py-8 pt-6
-      `}
+  flex flex-col md:flex-row 
+  md:items-center 
+  justify-between gap-4 py-8 pt-6
+`}
       >
         <Categories activeId={activeCategory} onChange={setActiveCategory} />
         <Sort activeSort={activeSort} onChange={setActiveSort} />
       </div>
-
       <div className="mt-6">
-        <h2 className="text-3xl font-extrabold mb-8">
-          {activeCategory === "all" ? "Все пиццы" : "Пиццы категории"}
-        </h2>
+        <h2 className="text-3xl font-extrabold mb-8">Все пиццы</h2>
 
         {isLoading ? (
           <div className="flex justify-center items-center py-20">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#fe5f1e]"></div>
+            <div
+              className={`
+              animate-spin rounded-full 
+              h-12 w-12 border-t-2 
+              border-b-2 border-[#fe5f1e]
+            `}
+            ></div>
           </div>
         ) : products.length === 0 ? (
           <p className="text-gray-400 text-center py-10">Пиццы не найдены.</p>
