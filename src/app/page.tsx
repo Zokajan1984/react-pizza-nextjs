@@ -1,50 +1,69 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
+import { api } from "@/lib/axios";
+import {
+  Product,
+  Category,
+  ApiResponseProducts,
+  ApiResponseCategories,
+} from "@/types/pizza";
 import { Header } from "@/components/Header";
 import { Categories } from "@/components/Categories";
 import { Sort } from "@/components/Sort";
 import { PizzaCard } from "@/components/PizzaCard";
 
-// Временные данные для проверки верстки карточек
-const mockProducts = [
-  {
-    id: "1",
-    name: "Чизбургер-пицца",
-    price: 395,
-    imageUrl: "https://dodostatic.net",
-    description:
-      "Мясной соус болоньезе, моцарелла, маринованные огурчики, томаты, красный лук, соус бургер",
-  },
-  {
-    id: "2",
-    name: "Сырная пицца",
-    price: 295,
-    imageUrl: "https://dodostatic.net",
-    description:
-      "Увеличенная порция моцареллы, сыры чеддер и пармезан, соус альфредо",
-  },
-  {
-    id: "3",
-    name: "Пепперони-фреш",
-    price: 325,
-    imageUrl: "https://dodostatic.net",
-    description:
-      "Пикантная пепперони, увеличенная порция моцареллы, томаты, томатный соус",
-  },
-  {
-    id: "4",
-    name: "Азиатская пицца",
-    price: 445,
-    imageUrl: "https://dodostatic.net",
-    description:
-      "Цыпленок, соус сладкий чили, болгарский перец, моцарелла, томатный соус",
-  },
-];
-
 export default function Home() {
-  const [category, setCategory] = useState("all");
-  const [sort, setSort] = useState("popular");
+  const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  const [activeCategory, setActiveCategory] = useState("all");
+  const [activeSort, setActiveSort] = useState("popular");
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await api.get<ApiResponseCategories>("/categories");
+        setCategories(response.data.data);
+      } catch (error) {
+        console.error("Ошибка загрузки категорий:", error);
+        toast.error("Не удалось загрузить категории");
+      }
+    };
+    fetchCategories();
+  }, []);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setIsLoading(true);
+      try {
+        let url = "/products";
+        if (activeCategory !== "all") {
+          url = `/products?category=${activeCategory}`;
+        }
+
+        const response = await api.get<ApiResponseProducts>(url);
+        let items = response.data.data;
+
+        if (activeSort === "price") {
+          items = [...items].sort((a, b) => a.price - b.price);
+        } else if (activeSort === "alphabet") {
+          items = [...items].sort((a, b) => a.name.localeCompare(b.name));
+        }
+
+        setProducts(items);
+      } catch (error) {
+        console.error("Ошибка загрузки продуктов:", error);
+        toast.error("Не удалось загрузить пиццы");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, [activeCategory, activeSort]);
 
   return (
     <div className="pb-20">
@@ -57,30 +76,41 @@ export default function Home() {
         justify-between gap-4 py-8 pt-6
       `}
       >
-        <Categories activeId={category} onChange={setCategory} />
-        <Sort activeSort={sort} onChange={setSort} />
+        <Categories activeId={activeCategory} onChange={setActiveCategory} />
+        <Sort activeSort={activeSort} onChange={setActiveSort} />
       </div>
 
       <div className="mt-6">
-        <h2 className="text-3xl font-extrabold mb-8">Все пиццы</h2>
-        <div
-          className={`
-          grid grid-cols-1 sm:grid-cols-2 
-          md:grid-cols-3 lg:grid-cols-4 
-          gap-x-6 gap-y-10
-        `}
-        >
-          {mockProducts.map((pizza) => (
-            <PizzaCard
-              key={pizza.id}
-              id={pizza.id}
-              name={pizza.name}
-              price={pizza.price}
-              imageUrl={pizza.imageUrl}
-              description={pizza.description}
-            />
-          ))}
-        </div>
+        <h2 className="text-3xl font-extrabold mb-8">
+          {activeCategory === "all" ? "Все пиццы" : "Пиццы категории"}
+        </h2>
+
+        {isLoading ? (
+          <div className="flex justify-center items-center py-20">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#fe5f1e]"></div>
+          </div>
+        ) : products.length === 0 ? (
+          <p className="text-gray-400 text-center py-10">Пиццы не найдены.</p>
+        ) : (
+          <div
+            className={`
+            grid grid-cols-1 sm:grid-cols-2 
+            md:grid-cols-3 lg:grid-cols-4 
+            gap-x-6 gap-y-10
+          `}
+          >
+            {products.map((pizza) => (
+              <PizzaCard
+                key={pizza.id}
+                id={pizza.id}
+                name={pizza.name}
+                price={pizza.price}
+                imageUrl={pizza.imageUrl}
+                description={pizza.description}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

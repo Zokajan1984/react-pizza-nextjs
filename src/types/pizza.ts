@@ -33,3 +33,11 @@ export interface Order {
   status: "pending" | "comleted";
   createdId: string;
 }
+
+export interface ApiResponseCategories {
+  data: Category[];
+}
+
+export interface ApiResponseProducts {
+  data: Product[];
+}
