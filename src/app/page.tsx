@@ -15,7 +15,6 @@ export default function Home() {
   const [activeSort, setActiveSort] = useState("popular");
   const [isLoading, setIsLoading] = useState(true);
 
-  // Один чистый хук для загрузки продуктов
   useEffect(() => {
     const fetchProducts = async () => {
       setIsLoading(true);
