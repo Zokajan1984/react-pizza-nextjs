@@ -20,6 +20,7 @@ export default function AdminPage() {
   const [newProdPrice, setNewProdPrice] = useState("");
   const [newProdCat, setNewProdCat] = useState("");
   const [newProdDesc, setNewProdDesc] = useState("");
+  const [newProdImageUrl, setNewProdImageUrl] = useState("");
 
   const loadAdminData = async () => {
     try {
@@ -68,6 +69,7 @@ export default function AdminPage() {
           price: Number(newProdPrice),
           categoryId: newProdCat,
           description: newProdDesc,
+          imageUrl: newProdImageUrl,
         },
       });
       toast.success("Пицца добавлена!");
@@ -75,6 +77,7 @@ export default function AdminPage() {
       setNewProdPrice("");
       setNewProdCat("");
       setNewProdDesc("");
+      setNewProdImageUrl("");
       loadAdminData();
     } catch {
       toast.error("Ошибка добавления");
@@ -133,6 +136,8 @@ export default function AdminPage() {
             setCatId={setNewProdCat}
             desc={newProdDesc}
             setDesc={setNewProdDesc}
+            imageUrl={newProdImageUrl}
+            setImageUrl={setNewProdImageUrl}
             onSubmit={handleAddProduct}
           />
         </TabsContent>

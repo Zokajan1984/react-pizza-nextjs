@@ -16,6 +16,8 @@ interface Props {
   setCatId: (v: string) => void;
   desc: string;
   setDesc: (v: string) => void;
+  imageUrl: string;
+  setImageUrl: (v: string) => void;
   onSubmit: (e: React.FormEvent) => void;
 }
 
@@ -30,6 +32,8 @@ export const AdminProducts = ({
   setCatId,
   desc,
   setDesc,
+  imageUrl,
+  setImageUrl,
   onSubmit,
 }: Props) => {
   return (
@@ -39,20 +43,23 @@ export const AdminProducts = ({
         className="border p-6 rounded-2xl bg-white shadow-sm flex flex-col gap-4"
       >
         <h3 className="font-bold text-lg">Добавить пиццу</h3>
+
         <Input
           type="text"
-          placeholder="Название"
+          placeholder="Название пиццы"
           value={name}
           onChange={(e) => setName(e.target.value)}
           className="rounded-xl"
         />
+
         <Input
           type="number"
-          placeholder="Цена"
+          placeholder="Цена (в ₽)"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
           className="rounded-xl"
         />
+
         <select
           value={catId}
           onChange={(e) => setCatId(e.target.value)}
@@ -65,13 +72,23 @@ export const AdminProducts = ({
             </option>
           ))}
         </select>
+
         <Input
           type="text"
-          placeholder="Ингредиенты"
+          placeholder="Ссылка на картинку (URL)"
+          value={imageUrl}
+          onChange={(e) => setImageUrl(e.target.value)}
+          className="rounded-xl"
+        />
+
+        <Input
+          type="text"
+          placeholder="Ингредиенты (описание)"
           value={desc}
           onChange={(e) => setDesc(e.target.value)}
           className="rounded-xl"
         />
+
         <Button
           type="submit"
           className="bg-[#fe5f1e] hover:bg-[#b53a07] text-white font-bold w-full rounded-xl"
@@ -79,11 +96,12 @@ export const AdminProducts = ({
           <Plus className="w-4 h-4" /> Создать пиццу
         </Button>
       </form>
+
       <div className="md:col-span-2 border rounded-2xl bg-white shadow-sm overflow-hidden">
         <div className="bg-gray-50 p-4 border-b font-bold text-gray-700">
           Все пиццы в базе
         </div>
-        <div className="divide-y max-h-100 overflow-y-auto">
+        <div className="divide-y max-h-112.5 overflow-y-auto">
           {products.map((prod) => (
             <div
               key={prod.id}

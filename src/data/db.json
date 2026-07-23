@@ -61,6 +61,58 @@
       "categoryId": "4",
       "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDc1EkUAy1odbi8m_vsMjpbnGms9aJGiZY_oq3Hdp8aoce9ih5EiaNdZU&s=10",
       "description": "В самой Италии словом peperoni называют обычный сладкий болгарский перец, а острую пиццу с салями там заказывают под названием Pizza Diavola."
+    },
+    {
+      "id": "1784812609134",
+      "name": "Мясной пир",
+      "price": 455,
+      "categoryId": "1",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHkAF3VhkRZnQF7FRifxck-UhO6GQNACUaM7mGbWfbGCs0Z5U3d0wOGCUN&s=10",
+      "description": "Классический рецепт пиццы «Мясной пир» обычно готовится на пышном или тонком тесте с добавлением томатного соуса, моцареллы и ассорти из 3–5 видов мяса: ветчины, пепперони, бекона, курицы и охотничьих колбасок."
+    }
+  ],
+  "orders": [
+    {
+      "id": "1784811977686",
+      "customerName": "Zokirjon",
+      "phone": "+998 (90) 510-11-22",
+      "address": "Tashkent",
+      "items": [
+        {
+          "id": "2-thin-26",
+          "productId": "2",
+          "name": "Сырная пицца",
+          "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqzWzOIA19dm28JYA_FUFBtHPUMaPI2kGSi19jmAGoTg&s=10",
+          "type": "thin",
+          "size": 26,
+          "price": 295,
+          "count": 1
+        }
+      ],
+      "totalPrice": 295,
+      "status": "pending",
+      "createdAt": "2026-07-23T13:06:17.599Z"
+    },
+    {
+      "id": "1784812684531",
+      "customerName": "Xadiyja",
+      "phone": "+998 (99) 333-44-22",
+      "address": "Buxara",
+      "items": [
+        {
+          "id": "1784812609134-traditional-40",
+          "productId": "1784812609134",
+          "name": "Мясной пир",
+          "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHkAF3VhkRZnQF7FRifxck-UhO6GQNACUaM7mGbWfbGCs0Z5U3d0wOGCUN&s=10",
+          "type": "traditional",
+          "size": 40,
+          "price": 655,
+          "count": 1
+        }
+      ],
+      "totalPrice": 655,
+      "status": "pending",
+      "createdAt": "2026-07-23T13:18:04.507Z"
     }
   ]
 }
