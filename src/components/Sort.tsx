@@ -33,10 +33,25 @@ export const Sort = ({ activeSort, onChange }: Props) => {
         >
           {currentLabel}
         </DropdownMenuTrigger>
+
+        <DropdownMenuContent className="rounded-xl">
+          {sortOptions.map((option) => (
+            /* ВАЖНО: Добавлен уникальный ключ key для каждого пункта меню */
+            <DropdownMenuItem
+              key={option.id}
+              onClick={() => onChange(option.id)}
+              className="font-medium cursor-pointer focus:text-[#fe5f1e]"
+            >
+              {option.name}
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
         <DropdownMenuContent className="rounded-xl">
           {sortOptions.map((option) => (
             <DropdownMenuItem
-              className={`font-medium cursor-pointer focus:text-[#fe5f1e]`}
+              key={option.id}
+              onClick={() => onChange(option.id)}
+              className="font-medium cursor-pointer focus:text-[#fe5f1e]"
             >
               {option.name}
             </DropdownMenuItem>

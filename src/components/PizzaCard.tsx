@@ -45,8 +45,12 @@ export const PizzaCard = ({
 
   return (
     <div className="flex flex-col w-full max-w-70 mx-auto mb-10">
-      <div className="flex justify-center p-4">
-        <img src={imageUrl} alt={name} className="w-55 h-55 object-contain" />
+      <div className="flex justify-center p-4 border rounded-2xl bg-accent">
+        <img
+          src={imageUrl}
+          alt={name}
+          className="w-full h-full object-contain rounded-2xl shadow-xl"
+        />
       </div>
 
       <h3 className="text-xl font-extrabold text-gray-900 mt-3">{name}</h3>

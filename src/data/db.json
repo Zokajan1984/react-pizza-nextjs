@@ -1,9 +1,25 @@
 {
   "categories": [
-    { "id": "1", "name": "Мясные" },
-    { "id": "2", "name": "Вегетарианская" },
-    { "id": "3", "name": "Гриль" },
-    { "id": "4", "name": "Острые" }
+    {
+      "id": "1",
+      "name": "Мясные"
+    },
+    {
+      "id": "2",
+      "name": "Вегетарианская"
+    },
+    {
+      "id": "3",
+      "name": "Гриль"
+    },
+    {
+      "id": "4",
+      "name": "Острые"
+    },
+    {
+      "id": "1784537107843",
+      "name": "Мексиканский"
+    }
   ],
   "products": [
     {
@@ -11,7 +27,7 @@
       "name": "Чизбургер-пицца",
       "price": 395,
       "categoryId": "1",
-      "imageUrl": "https://dodostatic.net",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm4F_w_vRMl2O6I59c_dG1PO0lf6DK9oGAGc_iXu9gpQ&s=10",
       "description": "Мясной соус болоньезе, моцарелла, маринованные огурчики, томаты, красный лук"
     },
     {
@@ -19,7 +35,7 @@
       "name": "Сырная пицца",
       "price": 295,
       "categoryId": "2",
-      "imageUrl": "https://dodostatic.net",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqzWzOIA19dm28JYA_FUFBtHPUMaPI2kGSi19jmAGoTg&s=10",
       "description": "Увеличенная порция моцареллы, сыры чеддер и пармезан, соус альфредо"
     },
     {
@@ -27,7 +43,7 @@
       "name": "Пепперони-фреш",
       "price": 325,
       "categoryId": "1",
-      "imageUrl": "https://dodostatic.net",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpZUSHieKFVNoeqmyMZCDQKht3w-09lD6-z4_GsHlRPw&s=10",
       "description": "Пикантная пепперони, увеличенная порция моцареллы, томаты, томатный соус"
     },
     {
@@ -35,8 +51,16 @@
       "name": "Азиатская пицца",
       "price": 445,
       "categoryId": "3",
-      "imageUrl": "https://dodostatic.net",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdmF-7CRsm8vpKdXAl8KzAyFPUEbZepwWTmaUdu6HGUA&s=10",
       "description": "Цыпленок, соус сладкий чили, болгарский перец, моцарелла, томатный соус"
+    },
+    {
+      "id": "5",
+      "name": "Острый Пепперони",
+      "price": 445,
+      "categoryId": "4",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDc1EkUAy1odbi8m_vsMjpbnGms9aJGiZY_oq3Hdp8aoce9ih5EiaNdZU&s=10",
+      "description": "В самой Италии словом peperoni называют обычный сладкий болгарский перец, а острую пиццу с салями там заказывают под названием Pizza Diavola."
     }
   ]
 }

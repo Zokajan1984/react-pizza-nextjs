@@ -1,3 +1,5 @@
+// src/types/pizza.ts
+
 export interface Category {
   id: string;
   name: string;
@@ -13,7 +15,7 @@ export interface Product {
 }
 
 export interface CartItem {
-  id: string;
+  id: string; // "productId-type-size"
   productId: string;
   name: string;
   imageUrl: string;
@@ -25,19 +27,11 @@ export interface CartItem {
 
 export interface Order {
   id?: string;
-  itmes: CartItem[];
+  items: CartItem[]; // Строго массив продуктов в заказе
   totalPrice: number;
   customerName: string;
   phone: string;
   address: string;
-  status: "pending" | "comleted";
-  createdId: string;
-}
-
-export interface ApiResponseCategories {
-  data: Category[];
-}
-
-export interface ApiResponseProducts {
-  data: Product[];
+  status: "pending" | "completed";
+  createdAt: string;
 }
