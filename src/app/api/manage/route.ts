@@ -33,11 +33,19 @@ export async function POST(request: Request) {
     const { type, data } = body;
     const db = readDb();
 
-    if (type === "category") {
-      const newCategory = {
+    if (type === "order") {
+      if (!db.orders) db.orders = [];
+      const newOrder = {
         id: String(Date.now()),
-        name: data.name,
+        ...data,
       };
+      db.orders.push(newOrder);
+      writeDb(db);
+      return NextResponse.json({ success: true, data: newOrder });
+    }
+
+    if (type === "category") {
+      const newCategory = { id: String(Date.now()), name: data.name };
       if (!db.categories) db.categories = [];
       db.categories.push(newCategory);
       writeDb(db);

@@ -36,7 +36,6 @@ export const Sort = ({ activeSort, onChange }: Props) => {
 
         <DropdownMenuContent className="rounded-xl">
           {sortOptions.map((option) => (
-            /* ВАЖНО: Добавлен уникальный ключ key для каждого пункта меню */
             <DropdownMenuItem
               key={option.id}
               onClick={() => onChange(option.id)}

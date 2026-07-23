@@ -15,7 +15,7 @@ export interface Product {
 }
 
 export interface CartItem {
-  id: string; // "productId-type-size"
+  id: string;
   productId: string;
   name: string;
   imageUrl: string;
@@ -27,11 +27,19 @@ export interface CartItem {
 
 export interface Order {
   id?: string;
-  items: CartItem[]; // Строго массив продуктов в заказе
+  items: CartItem[];
   totalPrice: number;
   customerName: string;
   phone: string;
   address: string;
   status: "pending" | "completed";
   createdAt: string;
+}
+
+export interface ApiResponseProducts {
+  data: Product[];
+}
+
+export interface ApiResponseCategories {
+  data: Category[];
 }

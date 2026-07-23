@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import * as Dialog from "@radix-ui/react-dialog";
+import { IMaskInput } from "react-imask";
 import { useCartStore } from "@/store/useCartStore";
 import { api } from "@/lib/axios";
 import { Button } from "@/components/ui/button";
@@ -39,21 +40,32 @@ export default function CartPage() {
       return;
     }
 
+    if (phone.length < 19) {
+      toast.error("Введите корректный номер телефона");
+      return;
+    }
+
     setIsSending(true);
     try {
-      await api.post("/orders", {
-        customerName: name,
-        phone,
-        address,
-        items,
-        totalPrice,
-        status: "pending",
-        createdAt: new Date().toISOString(),
+      await api.post("/manage", {
+        type: "order",
+        data: {
+          customerName: name,
+          phone,
+          address,
+          items,
+          totalPrice,
+          status: "pending",
+          createdAt: new Date().toISOString(),
+        },
       });
 
       toast.success("Заказ успешно оформлен! 🍕");
       clearCart();
       setIsOpen(false);
+      setName("");
+      setPhone("");
+      setAddress("");
     } catch (error) {
       console.error(error);
       toast.error("Не удалось оформить заказ");
@@ -97,7 +109,6 @@ export default function CartPage() {
         </button>
       </div>
 
-      {/* Список товаров */}
       <div className="flex flex-col">
         {items.map((item) => (
           <div
@@ -139,7 +150,6 @@ export default function CartPage() {
             <div className="text-xl font-bold text-gray-900 min-w-21.25 text-right">
               {item.price * item.count} ₽
             </div>
-
             <button
               onClick={() => removePizza(item.id)}
               className="border border-gray-200 text-gray-300 hover:border-red-500 hover:text-red-500 w-7 h-7 rounded-full flex items-center justify-center transition-colors cursor-pointer"
@@ -150,7 +160,6 @@ export default function CartPage() {
         ))}
       </div>
 
-      {/* Подвал корзины */}
       <div className="flex flex-col gap-6 mt-10">
         <div className="flex items-center justify-between text-lg">
           <p className="text-gray-600">
@@ -175,7 +184,6 @@ export default function CartPage() {
             </Button>
           </Link>
 
-          {/* МОДАЛЬНОЕ ОКНО */}
           <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
             <Dialog.Trigger asChild>
               <Button className="bg-[#fe5f1e] hover:bg-[#b53a07] text-white font-bold px-8 py-6 rounded-full transition-colors">
@@ -211,12 +219,13 @@ export default function CartPage() {
                     <label className="text-xs font-bold text-gray-700">
                       Телефон
                     </label>
-                    <Input
-                      type="tel"
-                      placeholder="+998..."
+                    <IMaskInput
+                      mask="+998 (00) 000-00-00"
+                      lazy={false}
                       value={phone}
-                      className="rounded-xl border-gray-200"
-                      onChange={(e) => setPhone(e.target.value)}
+                      unmask={false}
+                      onAccept={(value) => setPhone(value)}
+                      className="flex h-10 w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     />
                   </div>
 
